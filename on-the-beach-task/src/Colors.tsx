@@ -5,13 +5,18 @@ export class Colors
         return "#ffffff";
     }
 
+    static get grey()
+    {
+        return "#878787";
+    }
+
     static get darkBlue()
     {
         return "#17317f";
     }
 
-    static get grey()
+    static get yellow()
     {
-        return "#878787";
+        return "#fedc07";
     }
 }
