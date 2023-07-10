@@ -12,6 +12,6 @@ export class Colors
 
     static get grey()
     {
-        return "#d4d4d4";
+        return "#878787";
     }
 }

@@ -27,6 +27,7 @@ export class HolidayListComponent extends React.Component<HolidayListComponentPr
                     {[...Array(holiday.starRating)].map(((e, i) => 
                         <img style={{ display: "inline-block", width: "16px", height: "16px" }} src={Util.getImageUrl("icon-star-yellow.svg")}/>))}
                 </div>
+                {this.getAttendeesText(holiday)}
             </div>
         </div>);
 
@@ -42,5 +43,14 @@ export class HolidayListComponent extends React.Component<HolidayListComponentPr
                 {holidays}
             </div>
         )
+    }
+
+    getAttendeesText(holiday : Holiday)
+    {
+        let adultS = holiday.adults == 1 ? "" : "s";
+        let children = holiday.children == 1 ? "child" : "children";
+        let infantS = holiday.infants == 1 ? "" : "s";
+        let infantText = holiday.infants == 0 ? "" : <span> & <b>{holiday.infants}</b> infant{infantS}</span>;
+        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{holiday.adults}</b> Adult{adultS}, <b>{holiday.children}</b> {children}{infantText}</p>
     }
 }
