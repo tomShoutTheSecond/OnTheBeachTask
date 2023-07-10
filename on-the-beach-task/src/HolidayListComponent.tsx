@@ -8,32 +8,43 @@ interface HolidayListComponentProps { }
 
 interface HolidayListComponentState 
 {
-    visibleHolidays : Holiday[]
+    visibleHolidays : Holiday[],
+    selectedHolidayIndex : number
 }
 
 export class HolidayListComponent extends React.Component<HolidayListComponentProps, HolidayListComponentState>
 {
-    state : HolidayListComponentState = { visibleHolidays: HolidayProvider.getHolidaysData() };
+    state : HolidayListComponentState = { visibleHolidays: HolidayProvider.getHolidaysData(), selectedHolidayIndex: -1 };
 
     render() 
     {
         let holidays = this.state.visibleHolidays.map((holiday, index) => 
-        <div style={{ background: Colors.white, marginBottom: "32px", display: "flex" }}>
-            <img style={{ display: "inline-block", verticalAlign: "top" }} src={holiday.imageUrl}/>
-            <div style={{ display: "inline-block", verticalAlign: "top", position: "relative", width: "280px" }}>
-                <p style={{ padding: "16px 16px 0px 16px", color: Colors.darkBlue, fontWeight: "bold" }}>{holiday.name}</p>
-                <p style={{ padding: "8px 16px 0px 16px", color: Colors.grey }}>{holiday.location}</p>
-                <div style={{ padding: "8px 15px 0px 15px" }}>
-                    {[...Array(holiday.starRating)].map(((e, i) => 
-                        <img style={{ display: "inline-block", width: "16px", height: "16px" }} src={Util.getImageUrl("icon-star-yellow.svg")}/>))}
+        <div key={index} style={{ width: "774px", background: Colors.white, marginBottom: "32px" }}>
+            <div style={{ display: "flex", position: "relative" }}>
+                <img style={{ display: "inline-block", verticalAlign: "top" }} src={holiday.imageUrl}/>
+                <div style={{ display: "inline-block", verticalAlign: "top", position: "relative", width: "280px" }}>
+                    <p style={{ padding: "16px 16px 0px 16px", color: Colors.darkBlue, fontWeight: "bold" }}>{holiday.name}</p>
+                    <p style={{ padding: "8px 16px 0px 16px", color: Colors.grey }}>{holiday.location}</p>
+                    <div style={{ padding: "8px 15px 0px 15px" }}>
+                        {[...Array(holiday.starRating)].map(((e, i) => 
+                            <img key={i} style={{ display: "inline-block", width: "16px", height: "16px" }} src={Util.getImageUrl("icon-star-yellow.svg")}/>))}
+                    </div>
+                    {this.getAttendeesText(holiday)}
+                    {this.getDateText(holiday)}
+                    {this.getDepartingFromText(holiday)}
+                    <div style={{ backgroundColor: Colors.yellow, color: Colors.darkBlue, fontWeight: "bold", padding: "12px", margin: "16px", borderRadius: "4px", textAlign: "center", position: "absolute", bottom: 0, left: 0, right: 0 }}>
+                        <p style={{ fontSize: "13px" }}>Book now</p>
+                        <p style={{ fontSize: "24px" }}>{this.getPriceString(holiday.price)}</p>
+                    </div>
                 </div>
-                {this.getAttendeesText(holiday)}
-                {this.getDateText(holiday)}
-                {this.getDepartingFromText(holiday)}
-                <div style={{ backgroundColor: Colors.yellow, color: Colors.darkBlue, fontWeight: "bold", padding: "12px", margin: "16px", borderRadius: "4px", textAlign: "center", position: "absolute", bottom: 0, left: 0, right: 0 }}>
-                    <p style={{ fontSize: "13px" }}>Book now</p>
-                    <p style={{ fontSize: "24px" }}>{this.getPriceString(holiday.price)}</p>
+                <div style={{ background: Colors.white, color: Colors.darkBlue, position: "absolute", display: "flex", alignItems: "center", padding: "8px 8px 8px 16px", bottom: 0, left: 0, userSelect: "none" }} onClick={() => this.setState({ selectedHolidayIndex: this.state.selectedHolidayIndex == index ? -1 : index })}>
+                    <p><b>Read more</b> about this hotel</p>
+                    <img style={{ width: "32px", height: "32px" }} src={this.state.selectedHolidayIndex == index ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")}/>
                 </div>
+            </div>
+            <div style={{ display: this.state.selectedHolidayIndex == index ? "block" : "none", padding: "16px" }}>
+                <p style={{ color: Colors.darkBlue, fontWeight: "bold", marginBottom: "8px" }}>Overview</p>
+                <p>{holiday.overview}</p>
             </div>
         </div>);
 
