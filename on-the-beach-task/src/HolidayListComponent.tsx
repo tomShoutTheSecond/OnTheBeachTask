@@ -20,7 +20,7 @@ export class HolidayListComponent extends React.Component<HolidayListComponentPr
         let holidays = this.state.visibleHolidays.map((holiday, index) => 
         <div style={{ background: Colors.white, marginBottom: "32px", display: "flex" }}>
             <img style={{ display: "inline-block", verticalAlign: "top" }} src={holiday.imageUrl}/>
-            <div style={{ display: "inline-block", verticalAlign: "top", width: "280px" }}>
+            <div style={{ display: "inline-block", verticalAlign: "top", position: "relative", width: "280px" }}>
                 <p style={{ padding: "16px 16px 0px 16px", color: Colors.darkBlue, fontWeight: "bold" }}>{holiday.name}</p>
                 <p style={{ padding: "8px 16px 0px 16px", color: Colors.grey }}>{holiday.location}</p>
                 <div style={{ padding: "8px 15px 0px 15px" }}>
@@ -30,7 +30,7 @@ export class HolidayListComponent extends React.Component<HolidayListComponentPr
                 {this.getAttendeesText(holiday)}
                 {this.getDateText(holiday)}
                 {this.getDepartingFromText(holiday)}
-                <div style={{ backgroundColor: Colors.yellow, color: Colors.darkBlue, fontWeight: "bold", padding: "12px", margin: "16px", borderRadius: "4px", textAlign: "center" }}>
+                <div style={{ backgroundColor: Colors.yellow, color: Colors.darkBlue, fontWeight: "bold", padding: "12px", margin: "16px", borderRadius: "4px", textAlign: "center", position: "absolute", bottom: 0, left: 0, right: 0 }}>
                     <p style={{ fontSize: "13px" }}>Book now</p>
                     <p style={{ fontSize: "24px" }}>{this.getPriceString(holiday.price)}</p>
                 </div>
