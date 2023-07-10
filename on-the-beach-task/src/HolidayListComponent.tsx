@@ -3,21 +3,16 @@ import { Holiday } from "./Holiday";
 import { HolidayProvider } from "./HolidayProvider";
 import { Colors } from "./Colors";
 import { Util } from "./Util";
+import { State } from "./App";
 
 interface HolidayListComponentProps 
 { 
-    holidays : Holiday[]
-}
-
-interface HolidayListComponentState 
-{
+    holidays : Holiday[],
     selectedHolidayIndex : number
 }
 
-export class HolidayListComponent extends React.Component<HolidayListComponentProps, HolidayListComponentState>
+export class HolidayListComponent extends React.Component<HolidayListComponentProps>
 {
-    state : HolidayListComponentState = { selectedHolidayIndex: -1 };
-
     render() 
     {
         let holidays = this.props.holidays.map((holiday, index) => 
@@ -39,12 +34,12 @@ export class HolidayListComponent extends React.Component<HolidayListComponentPr
                         <p style={{ fontSize: "24px" }}>{this.getPriceString(holiday.price)}</p>
                     </div>
                 </div>
-                <div style={{ background: Colors.white, color: Colors.darkBlue, position: "absolute", display: "flex", alignItems: "center", padding: "8px 8px 8px 16px", bottom: 0, left: 0, userSelect: "none" }} onClick={() => this.setState({ selectedHolidayIndex: this.state.selectedHolidayIndex == index ? -1 : index })}>
+                <div style={{ background: Colors.white, color: Colors.darkBlue, position: "absolute", display: "flex", alignItems: "center", padding: "8px 8px 8px 16px", bottom: 0, left: 0, userSelect: "none" }} onClick={() => State.selectHoliday(this.props.selectedHolidayIndex == index ? -1 : index)}>
                     <p><b>Read more</b> about this hotel</p>
-                    <img style={{ width: "32px", height: "32px" }} src={this.state.selectedHolidayIndex == index ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")}/>
+                    <img style={{ width: "32px", height: "32px" }} src={this.props.selectedHolidayIndex == index ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")}/>
                 </div>
             </div>
-            <div style={{ display: this.state.selectedHolidayIndex == index ? "block" : "none", padding: "16px" }}>
+            <div style={{ display: this.props.selectedHolidayIndex == index ? "block" : "none", padding: "16px" }}>
                 <p style={{ color: Colors.darkBlue, fontWeight: "bold", marginBottom: "8px" }}>Overview</p>
                 <p>{holiday.overview}</p>
             </div>

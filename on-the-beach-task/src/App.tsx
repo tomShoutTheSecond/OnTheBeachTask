@@ -14,18 +14,27 @@ export class State
 
     static sortHolidays(sortType : SortType)
     {
+        let holidays = State.app.state.holidays;
+
         switch(sortType)
         {
             case "alphabet":
-                this.app.setState({ holidays: State.app.state.holidays.sort((a, b) => a.name.localeCompare(b.name)) });
+                holidays = holidays.sort((a, b) => a.name.localeCompare(b.name));
                 break;
             case "price":
-                this.app.setState({ holidays: State.app.state.holidays.sort((a, b) => a.price - b.price) });
+                holidays = holidays.sort((a, b) => a.price - b.price);
                 break;
             case "stars":
-                this.app.setState({ holidays: State.app.state.holidays.sort((a, b) => a.starRating - b.starRating) });
+                holidays = holidays.sort((a, b) => a.starRating - b.starRating);
                 break;
         }
+
+        this.app.setState({ selectedHolidayIndex: -1, sortType: sortType, holidays: holidays });
+    }
+
+    static selectHoliday(index : number)
+    {
+        this.app.setState({ selectedHolidayIndex: index });
     }
 }
 
@@ -33,12 +42,14 @@ interface AppProps { }
 
 interface AppState
 {
-    holidays : Holiday[]
+    holidays : Holiday[],
+    selectedHolidayIndex : number,
+    sortType : SortType
 }
 
 class App extends React.Component<AppProps, AppState>
 {
-    state : AppState = { holidays: HolidayProvider.getHolidaysData() }
+    state : AppState = { holidays: HolidayProvider.getHolidaysData(), selectedHolidayIndex: -1, sortType: "alphabet" }
 
     render() 
     {
@@ -61,15 +72,17 @@ class App extends React.Component<AppProps, AppState>
         return (
             <div style={containerStyle}>
                 <div style={backgroundStyle}/>
-                <SortingComponent/>
-                <HolidayListComponent holidays={this.state.holidays}/>
+                <SortingComponent sortType={this.state.sortType}/>
+                <HolidayListComponent holidays={this.state.holidays} selectedHolidayIndex={this.state.selectedHolidayIndex}/>
             </div>
         );
     }
 
     componentDidMount(): void 
     {
-        State.app = this;    
+        State.app = this;
+        
+        State.sortHolidays("alphabet");
     }
 }
 

@@ -4,17 +4,13 @@ import { Util } from "./Util";
 import { SortType } from "./SortType";
 import { State } from "./App";
 
-interface SortingComponentProps { }
-
-interface SortingComponentState 
-{
-    sortType : SortType
+interface SortingComponentProps 
+{ 
+    sortType : SortType    
 }
 
-export class SortingComponent extends React.Component<SortingComponentProps, SortingComponentState>
+export class SortingComponent extends React.Component<SortingComponentProps>
 {
-    state : SortingComponentState = { sortType: "alphabet" };
-
     render(): React.ReactNode 
     {
         let containerStyle : CSSProperties =
@@ -54,30 +50,21 @@ export class SortingComponent extends React.Component<SortingComponentProps, Sor
 
         return (
             <div style={containerStyle}>
-                <div style={this.state.sortType == "alphabet" ? selectedStyle : unselectedStyle} onClick={() => this.setState({ sortType: "alphabet" })}>
+                <div style={this.props.sortType == "alphabet" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("alphabet")}>
                     <p>sort <b>alphabetically</b></p>
-                    <img style={iconStyle} src={this.state.sortType == "alphabet" ? Util.getImageUrl("icon-alphabet-white.svg") : Util.getImageUrl("icon-alphabet-grey.svg")}/>
+                    <img style={iconStyle} src={this.props.sortType == "alphabet" ? Util.getImageUrl("icon-alphabet-white.svg") : Util.getImageUrl("icon-alphabet-grey.svg")}/>
                 </div>
                 <div style={borderStyle}/>
-                <div style={this.state.sortType == "price" ? selectedStyle : unselectedStyle} onClick={() => this.setState({ sortType: "price" })}>
+                <div style={this.props.sortType == "price" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("price")}>
                     <p>sort by <b>price</b></p>
-                    <img style={iconStyle} src={this.state.sortType == "price" ? Util.getImageUrl("icon-price-white.svg") : Util.getImageUrl("icon-price-grey.svg")}/>
+                    <img style={iconStyle} src={this.props.sortType == "price" ? Util.getImageUrl("icon-price-white.svg") : Util.getImageUrl("icon-price-grey.svg")}/>
                 </div>
                 <div style={borderStyle}/>
-                <div style={this.state.sortType == "stars" ? selectedStyle : unselectedStyle} onClick={() => this.setState({ sortType: "stars" })}>
+                <div style={this.props.sortType == "stars" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("stars")}>
                     <p>sort by <b>star rating</b></p>
-                    <img style={iconStyle} src={this.state.sortType == "stars" ? Util.getImageUrl("icon-star-white.svg") : Util.getImageUrl("icon-star-grey.svg")}/>
+                    <img style={iconStyle} src={this.props.sortType == "stars" ? Util.getImageUrl("icon-star-white.svg") : Util.getImageUrl("icon-star-grey.svg")}/>
                 </div>
             </div>
         )
-    }
-
-    override componentDidUpdate(prevProps: Readonly<SortingComponentProps>, prevState: Readonly<SortingComponentState>, snapshot?: any): void 
-    {
-        if (prevState.sortType != this.state.sortType)
-        {
-            //sort the holidays
-            State.sortHolidays(this.state.sortType);
-        }
     }
 }
