@@ -20,7 +20,7 @@ export class HolidayListComponent extends React.Component<HolidayListComponentPr
             <div style={{ display: "flex", position: "relative" }}>
                 <img style={{ display: "inline-block", verticalAlign: "top" }} src={holiday.imageUrl}/>
                 <div style={{ display: "inline-block", verticalAlign: "top", position: "relative", width: "280px" }}>
-                    <p style={{ padding: "16px 16px 0px 16px", color: Colors.darkBlue, fontWeight: "bold" }}>{holiday.name}</p>
+                    <p style={{ padding: "16px 16px 0px 16px", color: Colors.darkBlue, fontWeight: "bold" }} data-testid="holiday-name">{holiday.name}</p>
                     <p style={{ padding: "8px 16px 0px 16px", color: Colors.grey }}>{holiday.location}</p>
                     <div style={{ padding: "8px 15px 0px 15px" }}>
                         {[...Array(holiday.starRating)].map(((e, i) => 
