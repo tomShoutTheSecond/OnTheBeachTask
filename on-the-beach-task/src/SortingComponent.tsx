@@ -1,6 +1,8 @@
 import React, { CSSProperties } from "react";
 import { Colors } from "./Colors";
 import { Util } from "./Util";
+import { SortType } from "./SortType";
+import { State } from "./App";
 
 interface SortingComponentProps { }
 
@@ -8,8 +10,6 @@ interface SortingComponentState
 {
     sortType : SortType
 }
-
-type SortType = "alphabet" | "price" | "stars"; 
 
 export class SortingComponent extends React.Component<SortingComponentProps, SortingComponentState>
 {
@@ -70,5 +70,14 @@ export class SortingComponent extends React.Component<SortingComponentProps, Sor
                 </div>
             </div>
         )
+    }
+
+    override componentDidUpdate(prevProps: Readonly<SortingComponentProps>, prevState: Readonly<SortingComponentState>, snapshot?: any): void 
+    {
+        if (prevState.sortType != this.state.sortType)
+        {
+            //sort the holidays
+            State.sortHolidays(this.state.sortType);
+        }
     }
 }

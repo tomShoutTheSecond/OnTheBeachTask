@@ -4,21 +4,23 @@ import { HolidayProvider } from "./HolidayProvider";
 import { Colors } from "./Colors";
 import { Util } from "./Util";
 
-interface HolidayListComponentProps { }
+interface HolidayListComponentProps 
+{ 
+    holidays : Holiday[]
+}
 
 interface HolidayListComponentState 
 {
-    visibleHolidays : Holiday[],
     selectedHolidayIndex : number
 }
 
 export class HolidayListComponent extends React.Component<HolidayListComponentProps, HolidayListComponentState>
 {
-    state : HolidayListComponentState = { visibleHolidays: HolidayProvider.getHolidaysData(), selectedHolidayIndex: -1 };
+    state : HolidayListComponentState = { selectedHolidayIndex: -1 };
 
     render() 
     {
-        let holidays = this.state.visibleHolidays.map((holiday, index) => 
+        let holidays = this.props.holidays.map((holiday, index) => 
         <div key={index} style={{ width: "774px", background: Colors.white, marginBottom: "32px" }}>
             <div style={{ display: "flex", position: "relative" }}>
                 <img style={{ display: "inline-block", verticalAlign: "top" }} src={holiday.imageUrl}/>
