@@ -21,7 +21,8 @@ export class SortingComponent extends React.Component<SortingComponentProps, Sor
         {
             width: "256px",
             padding: "64px",
-            display: "inline-block"
+            display: "inline-block",
+            verticalAlign: "top"
         }
 
         let selectedStyle : CSSProperties =

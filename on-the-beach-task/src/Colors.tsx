@@ -9,4 +9,9 @@ export class Colors
     {
         return "#17317f";
     }
+
+    static get grey()
+    {
+        return "#d4d4d4";
+    }
 }
