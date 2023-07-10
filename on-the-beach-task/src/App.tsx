@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Util } from './Util';
 import { SortingComponent } from './SortingComponent';
+import { HolidayListComponent } from './HolidayListComponent';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
     return (
         <div style={containerStyle}>
             <SortingComponent/>
+            <HolidayListComponent/>
         </div>
     );
 }
