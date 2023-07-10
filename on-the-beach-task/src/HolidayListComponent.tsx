@@ -39,7 +39,7 @@ export class HolidayListComponent extends React.Component<HolidayListComponentPr
                     <img style={{ width: "32px", height: "32px" }} src={this.props.selectedHolidayIndex == index ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")}/>
                 </div>
             </div>
-            <div style={{ display: this.props.selectedHolidayIndex == index ? "block" : "none", padding: "16px" }}>
+            <div style={{ display: this.props.selectedHolidayIndex == index ? "block" : "none", padding: "16px" }} data-testid="overview">
                 <p style={{ color: Colors.darkBlue, fontWeight: "bold", marginBottom: "8px" }}>Overview</p>
                 <p>{holiday.overview}</p>
             </div>

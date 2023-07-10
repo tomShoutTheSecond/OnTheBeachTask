@@ -92,3 +92,94 @@ test('order by star rating hotels in correct order', () => {
     expect(holidayItems.indexOf(aguamarinaElement)).toEqual(1);
     expect(holidayItems.indexOf(iberostarElement)).toEqual(2);
 });
+
+test('all overviews are hidden by default', () => {
+    render(<App />);
+
+    const overviewElements = screen.getAllByTestId("overview");
+    for(let i = 0; i < overviewElements.length; i++)
+    {
+        expect(overviewElements[i]).toHaveStyle({ display: "none" });
+    }
+});
+
+test('tap read more overview does appear', () => {
+    render(<App />);
+
+    //tap the read more button
+    const readMoreButton = screen.getAllByText(/read more/i)[0];
+    act(() => {
+        fireEvent.click(readMoreButton);
+    });
+
+    const overviewElement = screen.getByText(/enjoy a unique blend of tranquility/i);
+    expect(overviewElement.parentElement).toHaveStyle({ display: "block" });
+});
+
+test('tap open read more overview does hide', () => {
+    render(<App />);
+
+    //tap the read more button
+    const readMoreButton = screen.getAllByText(/read more/i)[0];
+    act(() => {
+        fireEvent.click(readMoreButton);
+    });
+
+    //overview appears
+
+    //tap again
+    act(() => {
+        fireEvent.click(readMoreButton);
+    });
+
+    //check that the overview hides
+    const overviewElement = screen.getByText(/enjoy a unique blend of tranquility/i);
+    expect(overviewElement.parentElement).toHaveStyle({ display: "none" });
+});
+
+test('tap read more previous overview is hidden', () => {
+    render(<App />);
+
+    //tap the first read more button
+    const readMoreButtonOne = screen.getAllByText(/read more/i)[0];
+    act(() => {
+        fireEvent.click(readMoreButtonOne);
+    });
+
+    //overview appears for the first holiday
+
+    //tap the second read more button
+    const readMoreButtonTwo = screen.getAllByText(/read more/i)[1];
+    act(() => {
+        fireEvent.click(readMoreButtonTwo);
+    });
+
+    //check the first overview gets hidden
+    const overviewElement = screen.getByText(/enjoy a unique blend of tranquility/i);
+    expect(overviewElement.parentElement).toHaveStyle({ display: "none" });
+});
+
+test('reorder holidays overviews do hide', () => {
+    render(<App />);
+
+    //tap the first read more button
+    const readMoreButtonOne = screen.getAllByText(/read more/i)[0];
+    act(() => {
+        fireEvent.click(readMoreButtonOne);
+    });
+
+    //overview appears for the first holiday
+
+    //tap the order by price button
+    const priceElement = screen.getByText(/price/i);
+    act(() => {
+        fireEvent.click(priceElement);
+    });
+
+    //check all overviews get hidden
+    const overviewElements = screen.getAllByTestId("overview");
+    for(let i = 0; i < overviewElements.length; i++)
+    {
+        expect(overviewElements[i]).toHaveStyle({ display: "none" });
+    }
+});
