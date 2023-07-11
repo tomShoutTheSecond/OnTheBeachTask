@@ -49,7 +49,7 @@ interface AppState
 
 class App extends React.Component<AppProps, AppState>
 {
-    state : AppState = { holidays: HolidayProvider.getHolidaysData(), selectedHolidayIndex: -1, sortType: "alphabet" }
+    state : AppState = { holidays: HolidayProvider.getHolidaysData(), selectedHolidayIndex: -1, sortType: "price" }
 
     render() 
     {
@@ -82,7 +82,7 @@ class App extends React.Component<AppProps, AppState>
     {
         State.app = this;
         
-        State.sortHolidays("alphabet");
+        State.sortHolidays(this.state.sortType);
     }
 }
 

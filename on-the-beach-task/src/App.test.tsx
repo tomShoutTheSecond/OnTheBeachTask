@@ -112,7 +112,7 @@ test('tap read more overview does appear', () => {
         fireEvent.click(readMoreButton);
     });
 
-    const overviewElement = screen.getByText(/enjoy a unique blend of tranquility/i);
+    const overviewElement = screen.getByText(/Welcome to Las Piramides Resort/i);
     expect(overviewElement.parentElement).toHaveStyle({ display: "block" });
 });
 
@@ -133,7 +133,7 @@ test('tap open read more overview does hide', () => {
     });
 
     //check that the overview hides
-    const overviewElement = screen.getByText(/enjoy a unique blend of tranquility/i);
+    const overviewElement = screen.getByText(/Welcome to Las Piramides Resort/i);
     expect(overviewElement.parentElement).toHaveStyle({ display: "none" });
 });
 
@@ -155,7 +155,7 @@ test('tap read more previous overview is hidden', () => {
     });
 
     //check the first overview gets hidden
-    const overviewElement = screen.getByText(/enjoy a unique blend of tranquility/i);
+    const overviewElement = screen.getByText(/Welcome to Las Piramides Resort/i);
     expect(overviewElement.parentElement).toHaveStyle({ display: "none" });
 });
 
