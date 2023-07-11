@@ -50,19 +50,19 @@ export class SortingComponent extends React.Component<SortingComponentProps>
 
         return (
             <div style={containerStyle}>
-                <div style={this.props.sortType == "alphabet" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("alphabet")}>
+                <div style={this.props.sortType === "alphabet" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("alphabet")}>
                     <p>sort <b>alphabetically</b></p>
-                    <img style={iconStyle} src={this.props.sortType == "alphabet" ? Util.getImageUrl("icon-alphabet-white.svg") : Util.getImageUrl("icon-alphabet-grey.svg")}/>
+                    <img style={iconStyle} src={this.props.sortType === "alphabet" ? Util.getImageUrl("icon-alphabet-white.svg") : Util.getImageUrl("icon-alphabet-grey.svg")} alt="icon alphabet"/>
                 </div>
                 <div style={borderStyle}/>
-                <div style={this.props.sortType == "price" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("price")}>
+                <div style={this.props.sortType === "price" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("price")}>
                     <p>sort by <b>price</b></p>
-                    <img style={iconStyle} src={this.props.sortType == "price" ? Util.getImageUrl("icon-price-white.svg") : Util.getImageUrl("icon-price-grey.svg")}/>
+                    <img style={iconStyle} src={this.props.sortType === "price" ? Util.getImageUrl("icon-price-white.svg") : Util.getImageUrl("icon-price-grey.svg")} alt="icon price"/>
                 </div>
                 <div style={borderStyle}/>
-                <div style={this.props.sortType == "stars" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("stars")}>
+                <div style={this.props.sortType === "stars" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("stars")}>
                     <p>sort by <b>star rating</b></p>
-                    <img style={iconStyle} src={this.props.sortType == "stars" ? Util.getImageUrl("icon-star-white.svg") : Util.getImageUrl("icon-star-grey.svg")}/>
+                    <img style={iconStyle} src={this.props.sortType === "stars" ? Util.getImageUrl("icon-star-white.svg") : Util.getImageUrl("icon-star-grey.svg")} alt="icon star"/>
                 </div>
             </div>
         )
