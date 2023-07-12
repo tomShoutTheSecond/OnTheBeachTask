@@ -121,9 +121,9 @@ export class HolidayItem extends React.Component<HolidayItemProps>
                         <p style={titleStyle} data-testid="holiday-name">{this.props.holiday.name}</p>
                         <p style={locationStyle}>{this.props.holiday.location}</p>
                         <StarsComponent starRating={this.props.holiday.starRating}/>
-                        {this.getAttendeesText(this.props.holiday)}
-                        {this.getDateText(this.props.holiday)}
-                        {this.getDepartingFromText(this.props.holiday)}
+                        {this.getAttendeesText()}
+                        {this.getDateText()}
+                        {this.getDepartingFromText()}
                         <div style={bookNowButtonStyle}>
                             <p style={bookNowTextStyle}>Book now</p>
                             <p style={priceTextStyle}>{this.getPriceString(this.props.holiday.price)}</p>
@@ -142,7 +142,7 @@ export class HolidayItem extends React.Component<HolidayItemProps>
         )
     }
 
-    getAttendeesText(holiday : Holiday)
+    getAttendeesText()
     {
         let adultS = this.props.holiday.adults === 1 ? "" : "s";
         let children = this.props.holiday.children === 1 ? "child" : "children";
@@ -151,13 +151,13 @@ export class HolidayItem extends React.Component<HolidayItemProps>
         return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{this.props.holiday.adults}</b> Adult{adultS}, <b>{this.props.holiday.children}</b> {children}{infantText}</p>
     }
 
-    getDateText(holiday : Holiday)
+    getDateText()
     {
         let dayS = this.props.holiday.days === 1 ? "" : "s";
         return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{this.props.holiday.date}</b> for <b>{this.props.holiday.days} day{dayS}</b></p>
     }
 
-    getDepartingFromText(holiday : Holiday)
+    getDepartingFromText()
     {
         return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}>departing from <b>{this.props.holiday.departingFrom}</b></p>
     }
