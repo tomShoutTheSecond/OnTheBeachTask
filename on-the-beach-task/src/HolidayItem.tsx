@@ -3,6 +3,7 @@ import { Colors } from "./Colors";
 import { Util } from "./Util";
 import { Holiday } from "./Holiday";
 import { State } from "./App";
+import { StarsComponent } from "./StarsComponent";
 
 interface HolidayItemProps
 {
@@ -53,18 +54,6 @@ export class HolidayItem extends React.Component<HolidayItemProps>
         { 
             padding: "8px 16px 0px 16px", 
             color: Colors.grey 
-        }
-
-        let starsContainerStyle : CSSProperties =
-        { 
-            padding: "8px 15px 0px 15px"
-        }
-
-        let starImgStyle: CSSProperties =
-        { 
-            display: "inline-block", 
-            width: "16px", 
-            height: "16px" 
         }
 
         let bookNowButtonStyle : CSSProperties = 
@@ -131,10 +120,7 @@ export class HolidayItem extends React.Component<HolidayItemProps>
                     <div style={detailsContainerStyle}>
                         <p style={titleStyle} data-testid="holiday-name">{this.props.holiday.name}</p>
                         <p style={locationStyle}>{this.props.holiday.location}</p>
-                        <div style={starsContainerStyle}>
-                            {[...Array(this.props.holiday.starRating)].map(((e, i) => 
-                                <img key={i} style={starImgStyle} src={Util.getImageUrl("icon-star-yellow.svg")} alt="star icon"/>))}
-                        </div>
+                        <StarsComponent starRating={this.props.holiday.starRating}/>
                         {this.getAttendeesText(this.props.holiday)}
                         {this.getDateText(this.props.holiday)}
                         {this.getDepartingFromText(this.props.holiday)}
