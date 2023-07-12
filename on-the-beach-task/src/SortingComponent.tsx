@@ -49,7 +49,7 @@ export class SortingComponent extends React.Component<SortingComponentProps>
         }
 
         return (
-            <div style={containerStyle}>
+            <section style={containerStyle}>
                 <div style={this.props.sortType === "alphabet" ? selectedStyle : unselectedStyle} onClick={() => State.sortHolidays("alphabet")}>
                     <p>sort <b>alphabetically</b></p>
                     <img style={iconStyle} src={this.props.sortType === "alphabet" ? Util.getImageUrl("icon-alphabet-white.svg") : Util.getImageUrl("icon-alphabet-grey.svg")} alt="icon alphabet"/>
@@ -64,7 +64,7 @@ export class SortingComponent extends React.Component<SortingComponentProps>
                     <p>sort by <b>star rating</b></p>
                     <img style={iconStyle} src={this.props.sortType === "stars" ? Util.getImageUrl("icon-star-white.svg") : Util.getImageUrl("icon-star-grey.svg")} alt="icon star"/>
                 </div>
-            </div>
+            </section>
         )
     }
 }
