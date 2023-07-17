@@ -1,88 +1,67 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties, useState } from 'react';
 import './App.css';
 import { Util } from './Util';
 import { SortingSection } from './SortingSection';
 import { HolidayList } from './HolidayList';
-import { Holiday } from './Holiday';
 import { HolidayProvider } from './HolidayProvider';
 import { SortType } from './SortType';
 
-export class State
+function App()
 {
-    static app : App;
+    const [holidays, setHolidays] = useState(HolidayProvider.getHolidaysData());
+    const [selectedHolidayIndex, setSelectedHolidayIndex] = useState(-1);
+    const [sortType, setSortType] = useState<SortType>("price");
 
-    static sortHolidays(sortType : SortType)
+    const sortHolidays = (newSortType : SortType) =>
     {
-        let holidays = State.app.state.holidays;
+        let newHolidays = holidays;
 
-        switch(sortType)
+        switch(newSortType)
         {
             case "alphabet":
-                holidays = holidays.sort((a, b) => a.name.localeCompare(b.name));
+                newHolidays = holidays.sort((a, b) => a.name.localeCompare(b.name));
                 break;
             case "price":
-                holidays = holidays.sort((a, b) => a.price - b.price);
+                newHolidays = holidays.sort((a, b) => a.price - b.price);
                 break;
             case "stars":
-                holidays = holidays.sort((a, b) => a.starRating - b.starRating);
+                newHolidays = holidays.sort((a, b) => a.starRating - b.starRating);
                 break;
         }
 
-        this.app.setState({ selectedHolidayIndex: -1, sortType: sortType, holidays: holidays });
+        //hide holiday overviews
+        setSelectedHolidayIndex(-1);
+
+        //highlight the right sort button
+        setSortType(newSortType);
+
+        //update holidays list
+        setHolidays(newHolidays)
     }
 
-    static selectHoliday(index : number)
+    let containerStyle : CSSProperties =
     {
-        this.app.setState({ selectedHolidayIndex: index });
+        width: "100%",
+        height: "100vh"
     }
-}
 
-interface AppProps { }
-
-interface AppState
-{
-    holidays : Holiday[],
-    selectedHolidayIndex : number,
-    sortType : SortType
-}
-
-class App extends React.Component<AppProps, AppState>
-{
-    state : AppState = { holidays: HolidayProvider.getHolidaysData(), selectedHolidayIndex: -1, sortType: "price" }
-
-    render() 
+    let backgroundStyle : CSSProperties =
     {
-        let containerStyle : CSSProperties =
-        {
-            width: "100%",
-            height: "100vh"
-        }
-    
-        let backgroundStyle : CSSProperties =
-        {
-            width: "100%",
-            height: "100vh",
-            position: "fixed",
-            backgroundImage: `url(${Util.getImageUrl("background.png")})`,
-            backgroundSize: "auto 100%",
-            zIndex: -1
-        }
-    
-        return (
-            <div style={containerStyle}>
-                <div style={backgroundStyle}/>
-                <SortingSection sortType={this.state.sortType}/>
-                <HolidayList holidays={this.state.holidays} selectedHolidayIndex={this.state.selectedHolidayIndex}/>
-            </div>
-        );
+        width: "100%",
+        height: "100vh",
+        position: "fixed",
+        backgroundImage: `url(${Util.getImageUrl("background.png")})`,
+        backgroundSize: "auto 100%",
+        zIndex: -1
     }
 
-    componentDidMount(): void 
-    {
-        State.app = this;
-        
-        State.sortHolidays(this.state.sortType);
-    }
+    return (
+        <div style={containerStyle}>
+            <div style={backgroundStyle}/>
+            <SortingSection sortType={sortType} sortHolidays={sortHolidays}/>
+            <HolidayList holidays={holidays} selectedHolidayIndex={selectedHolidayIndex} setSelectedHolidayIndex={setSelectedHolidayIndex}/>
+        </div>
+    );
 }
 
 export default App;

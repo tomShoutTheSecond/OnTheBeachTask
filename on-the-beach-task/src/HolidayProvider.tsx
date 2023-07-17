@@ -5,7 +5,7 @@ export class HolidayProvider
 {
     static getHolidaysData() : Holiday[]
     {
-        return [
+        const holidays = [
             { 
                 name: "Iberostar Grand Salome", 
                 location: "Costa Adeje, Tenerife",
@@ -48,6 +48,9 @@ export class HolidayProvider
                 days: 7,
                 overview: "Welcome to Las Piramides Resort, a vibrant retreat nestled in the heart of the bustling tourist hub of Tenerife. With the sparkling Atlantic Ocean within reach, this resort serves as an ideal base for beach lovers, while also offering easy access to a variety of restaurants, shops, and nightlife. Our resort is well-suited for families, couples, and groups, offering a plethora of amenities to suit everyone's preferences. Whether you are looking for relaxation by the pool, a thrilling day exploring local attractions, or a night out in the town, Las Piramides Resort guarantees an unforgettable holiday experience."
             }
-        ]
+        ];
+
+        //holidays are sorted by price by default
+        return holidays.sort((a, b) => a.price - b.price);
     }
 }

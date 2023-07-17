@@ -5,13 +5,14 @@ import { HolidayItem } from "./HolidayItem";
 interface HolidayListProps 
 { 
     holidays : Holiday[],
-    selectedHolidayIndex : number
+    selectedHolidayIndex : number,
+    setSelectedHolidayIndex : (index : number) => void;
 }
 
 export function HolidayList(props : HolidayListProps)
 {
     let holidays = props.holidays.map((holiday, index) => 
-        <HolidayItem key={index} index={index} holiday={holiday} isSelected={props.selectedHolidayIndex === index}/>);
+        <HolidayItem key={index} index={index} setSelectedHolidayIndex={props.setSelectedHolidayIndex} holiday={holiday} isSelected={props.selectedHolidayIndex === index}/>);
 
     let containerStyle : CSSProperties = 
     {

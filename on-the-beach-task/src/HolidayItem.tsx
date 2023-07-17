@@ -2,14 +2,14 @@ import { CSSProperties } from "react";
 import { Colors } from "./Colors";
 import { Util } from "./Util";
 import { Holiday } from "./Holiday";
-import { State } from "./App";
 import { Stars } from "./Stars";
 
 interface HolidayItemProps
 {
     index : number,
     holiday : Holiday,
-    isSelected : boolean
+    isSelected : boolean,
+    setSelectedHolidayIndex : (index : number) => void;
 }
 
 export function HolidayItem(props : HolidayItemProps)
@@ -158,7 +158,7 @@ export function HolidayItem(props : HolidayItemProps)
                         <p style={priceTextStyle}>{getPriceString(props.holiday.price)}</p>
                     </div>
                 </div>
-                <div style={readMoreContainerStyle} onClick={() => State.selectHoliday(props.isSelected ? -1 : props.index)}>
+                <div style={readMoreContainerStyle} onClick={() => props.setSelectedHolidayIndex(props.isSelected ? -1 : props.index)}>
                     <p><b>Read more</b> about this hotel</p>
                     <img style={chevronIconStyle} src={props.isSelected ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")} alt="chevron icon"/>
                 </div>
