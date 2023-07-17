@@ -1,23 +1,34 @@
-import { CSSProperties, useState } from 'react';
-import './App.css';
+import { useState } from 'react';
+import styled from 'styled-components';
 import { Util } from './Util';
 import { SortingSection } from './SortingSection';
 import { HolidayList } from './HolidayList';
 import { HolidayProvider } from './HolidayProvider';
 import { SortType } from './SortType';
 
-function App()
-{
+const Container = styled.div`
+    width: 100%;
+    height: 100vh;
+`;
+
+const Background = styled.div`
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-image: url(${Util.getImageUrl("background.png")});
+    background-size: auto 100%;
+    z-index: -1;
+`;
+
+function App() {
     const [holidays, setHolidays] = useState(HolidayProvider.getHolidaysData());
     const [selectedHolidayIndex, setSelectedHolidayIndex] = useState(-1);
     const [sortType, setSortType] = useState<SortType>("price");
 
-    const sortHolidays = (newSortType : SortType) =>
-    {
+    const sortHolidays = (newSortType: SortType) => {
         let newHolidays = holidays;
 
-        switch(newSortType)
-        {
+        switch (newSortType) {
             case "alphabet":
                 newHolidays = holidays.sort((a, b) => a.name.localeCompare(b.name));
                 break;
@@ -39,28 +50,12 @@ function App()
         setHolidays(newHolidays)
     }
 
-    let containerStyle : CSSProperties =
-    {
-        width: "100%",
-        height: "100vh"
-    }
-
-    let backgroundStyle : CSSProperties =
-    {
-        width: "100%",
-        height: "100vh",
-        position: "fixed",
-        backgroundImage: `url(${Util.getImageUrl("background.png")})`,
-        backgroundSize: "auto 100%",
-        zIndex: -1
-    }
-
     return (
-        <div style={containerStyle}>
-            <div style={backgroundStyle}/>
+        <Container>
+            <Background/>
             <SortingSection sortType={sortType} sortHolidays={sortHolidays}/>
             <HolidayList holidays={holidays} selectedHolidayIndex={selectedHolidayIndex} setSelectedHolidayIndex={setSelectedHolidayIndex}/>
-        </div>
+        </Container>
     );
 }
 

@@ -1,29 +1,26 @@
-import { CSSProperties } from "react";
 import { Holiday } from "./Holiday";
 import { HolidayItem } from "./HolidayItem";
+import { styled } from "styled-components";
 
-interface HolidayListProps 
-{ 
+interface HolidayListProps { 
     holidays : Holiday[],
     selectedHolidayIndex : number,
     setSelectedHolidayIndex : (index : number) => void;
 }
 
-export function HolidayList(props : HolidayListProps)
-{
+const Container = styled.section`
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 64px
+`;
+
+export function HolidayList(props : HolidayListProps) {
     let holidays = props.holidays.map((holiday, index) => 
         <HolidayItem key={index} index={index} setSelectedHolidayIndex={props.setSelectedHolidayIndex} holiday={holiday} isSelected={props.selectedHolidayIndex === index}/>);
 
-    let containerStyle : CSSProperties = 
-    {
-        display: "inline-block",
-        verticalAlign: "top",
-        paddingTop: "64px"
-    }
-
     return(
-        <section style={containerStyle}>
+        <Container>
             {holidays}
-        </section>
+        </Container>
     )
 }
