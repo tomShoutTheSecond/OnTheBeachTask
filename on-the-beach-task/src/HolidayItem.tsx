@@ -38,6 +38,7 @@ const Title = styled.p`
     padding: 16px 16px 0px 16px;
     color: ${Colors.darkBlue};
     font-weight: bold;
+    font-size: 18px
 `;
 
 const Location = styled.p`
@@ -99,6 +100,11 @@ const OverviewTitle = styled.p`
     margin-bottom: 8px;
 `;
 
+const InfoContent = styled.p`
+    padding: 8px 16px 0px 16px;
+    font-size: 14px;
+`;
+
 export function HolidayItem(props: HolidayItemProps) {
 
     const getAttendeesText = () => {
@@ -106,16 +112,16 @@ export function HolidayItem(props: HolidayItemProps) {
         let children = props.holiday.children === 1 ? "child" : "children";
         let infantS = props.holiday.infants === 1 ? "" : "s";
         let infantText = props.holiday.infants === 0 ? "" : <span> & <b>{props.holiday.infants}</b> infant{infantS}</span>;
-        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{props.holiday.adults}</b> Adult{adultS}, <b>{props.holiday.children}</b> {children}{infantText}</p>
+        return <InfoContent><b>{props.holiday.adults}</b> Adult{adultS}, <b>{props.holiday.children}</b> {children}{infantText}</InfoContent>
     }
 
     const getDateText = () => {
         let dayS = props.holiday.days === 1 ? "" : "s";
-        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{props.holiday.date}</b> for <b>{props.holiday.days} day{dayS}</b></p>
+        return <InfoContent><b>{props.holiday.date}</b> for <b>{props.holiday.days} day{dayS}</b></InfoContent>
     }
 
     const getDepartingFromText = () => {
-        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}>departing from <b>{props.holiday.departingFrom}</b></p>
+        return <InfoContent>departing from <b>{props.holiday.departingFrom}</b></InfoContent>
     }
 
     const getPriceString = (price : number) => {
