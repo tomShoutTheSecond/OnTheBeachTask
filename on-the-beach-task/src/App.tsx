@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react';
 import './App.css';
 import { Util } from './Util';
-import { SortingComponent } from './SortingComponent';
-import { HolidayListComponent } from './HolidayListComponent';
+import { SortingSection } from './SortingSection';
+import { HolidayList } from './HolidayList';
 import { Holiday } from './Holiday';
 import { HolidayProvider } from './HolidayProvider';
 import { SortType } from './SortType';
@@ -71,8 +71,8 @@ class App extends React.Component<AppProps, AppState>
         return (
             <div style={containerStyle}>
                 <div style={backgroundStyle}/>
-                <SortingComponent sortType={this.state.sortType}/>
-                <HolidayListComponent holidays={this.state.holidays} selectedHolidayIndex={this.state.selectedHolidayIndex}/>
+                <SortingSection sortType={this.state.sortType}/>
+                <HolidayList holidays={this.state.holidays} selectedHolidayIndex={this.state.selectedHolidayIndex}/>
             </div>
         );
     }

@@ -1,9 +1,9 @@
-import React, { CSSProperties } from "react";
+import { CSSProperties } from "react";
 import { Colors } from "./Colors";
 import { Util } from "./Util";
 import { Holiday } from "./Holiday";
 import { State } from "./App";
-import { StarsComponent } from "./StarsComponent";
+import { Stars } from "./Stars";
 
 interface HolidayItemProps
 {
@@ -12,157 +12,29 @@ interface HolidayItemProps
     isSelected : boolean
 }
 
-export class HolidayItem extends React.Component<HolidayItemProps>
+export function HolidayItem(props : HolidayItemProps)
 {
-    render() {
-
-        let containerStyle : CSSProperties = 
-        {
-            width: "774px", 
-            background: Colors.white, 
-            marginBottom: "32px"
-        }
-
-        let innerContainerStyle : CSSProperties = 
-        {
-            display: "flex", 
-            position: "relative"
-        }
-
-        let imgStyle : CSSProperties = 
-        {
-            display: "inline-block", 
-            verticalAlign: "top"
-        }
-
-        let detailsContainerStyle : CSSProperties = 
-        {
-            display: "inline-block", 
-            verticalAlign: "top", 
-            position: "relative", 
-            width: "280px"
-        }
-
-        let titleStyle : CSSProperties =
-        {
-            padding: "16px 16px 0px 16px", 
-            color: Colors.darkBlue, 
-            fontWeight: "bold"
-        }
-
-        let locationStyle : CSSProperties =
-        { 
-            padding: "8px 16px 0px 16px", 
-            color: Colors.grey 
-        }
-
-        let bookNowButtonStyle : CSSProperties = 
-        { 
-            backgroundColor: Colors.yellow, 
-            color: Colors.darkBlue, 
-            fontWeight: "bold", 
-            padding: "12px", 
-            margin: "16px", 
-            borderRadius: "4px", 
-            textAlign: "center", 
-            position: "absolute", 
-            bottom: 0, 
-            left: 0, 
-            right: 0 
-        }
-
-        let bookNowTextStyle : CSSProperties = 
-        { 
-            fontSize: "13px" 
-        }
-
-        let priceTextStyle : CSSProperties = 
-        { 
-            fontSize: "24px" 
-        }
-
-        let readMoreContainerStyle : CSSProperties = 
-        { 
-            background: Colors.white, 
-            color: Colors.darkBlue, 
-            position: "absolute", 
-            display: "flex", 
-            alignItems: "center", 
-            padding: "8px 8px 8px 16px", 
-            bottom: 0, 
-            left: 0, 
-            userSelect: "none" 
-        }
-
-        let chevronIconStyle : CSSProperties =
-        {
-            width: "32px", 
-            height: "32px" 
-        }
-
-        let overviewContainerStyle : CSSProperties =
-        { 
-            display: this.props.isSelected ? "block" : "none", 
-            padding: "16px" 
-        }
-
-        let overviewTitleStyle : CSSProperties =
-        { 
-            color: Colors.darkBlue, 
-            fontWeight: "bold", 
-            marginBottom: "8px" 
-        }
-
-        return (
-            <div key={this.props.index} style={containerStyle}>
-                <div style={innerContainerStyle}>
-                    <img style={imgStyle} src={this.props.holiday.imageUrl} alt="hotel"/>
-                    <div style={detailsContainerStyle}>
-                        <p style={titleStyle} data-testid="holiday-name">{this.props.holiday.name}</p>
-                        <p style={locationStyle}>{this.props.holiday.location}</p>
-                        <StarsComponent starRating={this.props.holiday.starRating}/>
-                        {this.getAttendeesText()}
-                        {this.getDateText()}
-                        {this.getDepartingFromText()}
-                        <div style={bookNowButtonStyle}>
-                            <p style={bookNowTextStyle}>Book now</p>
-                            <p style={priceTextStyle}>{this.getPriceString(this.props.holiday.price)}</p>
-                        </div>
-                    </div>
-                    <div style={readMoreContainerStyle} onClick={() => State.selectHoliday(this.props.isSelected ? -1 : this.props.index)}>
-                        <p><b>Read more</b> about this hotel</p>
-                        <img style={chevronIconStyle} src={this.props.isSelected ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")} alt="chevron icon"/>
-                    </div>
-                </div>
-                <div style={overviewContainerStyle} data-testid="overview">
-                    <p style={overviewTitleStyle}>Overview</p>
-                    <p>{this.props.holiday.overview}</p>
-                </div>
-            </div>
-        )
-    }
-
-    getAttendeesText()
+    const getAttendeesText = () =>
     {
-        let adultS = this.props.holiday.adults === 1 ? "" : "s";
-        let children = this.props.holiday.children === 1 ? "child" : "children";
-        let infantS = this.props.holiday.infants === 1 ? "" : "s";
-        let infantText = this.props.holiday.infants === 0 ? "" : <span> & <b>{this.props.holiday.infants}</b> infant{infantS}</span>;
-        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{this.props.holiday.adults}</b> Adult{adultS}, <b>{this.props.holiday.children}</b> {children}{infantText}</p>
+        let adultS = props.holiday.adults === 1 ? "" : "s";
+        let children = props.holiday.children === 1 ? "child" : "children";
+        let infantS = props.holiday.infants === 1 ? "" : "s";
+        let infantText = props.holiday.infants === 0 ? "" : <span> & <b>{props.holiday.infants}</b> infant{infantS}</span>;
+        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{props.holiday.adults}</b> Adult{adultS}, <b>{props.holiday.children}</b> {children}{infantText}</p>
     }
 
-    getDateText()
+    const getDateText = () =>
     {
-        let dayS = this.props.holiday.days === 1 ? "" : "s";
-        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{this.props.holiday.date}</b> for <b>{this.props.holiday.days} day{dayS}</b></p>
+        let dayS = props.holiday.days === 1 ? "" : "s";
+        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}><b>{props.holiday.date}</b> for <b>{props.holiday.days} day{dayS}</b></p>
     }
 
-    getDepartingFromText()
+    const getDepartingFromText = () =>
     {
-        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}>departing from <b>{this.props.holiday.departingFrom}</b></p>
+        return <p style={{ padding: "8px 16px 0px 16px", fontSize: "14px" }}>departing from <b>{props.holiday.departingFrom}</b></p>
     }
 
-    getPriceString(price : number)
+    const getPriceString = (price : number) =>
     {
         const formatter = new Intl.NumberFormat('en-GB', 
         {
@@ -172,4 +44,129 @@ export class HolidayItem extends React.Component<HolidayItemProps>
         
         return formatter.format(price); 
     }
+
+    let containerStyle : CSSProperties = 
+    {
+        width: "774px", 
+        background: Colors.white, 
+        marginBottom: "32px"
+    }
+
+    let innerContainerStyle : CSSProperties = 
+    {
+        display: "flex", 
+        position: "relative"
+    }
+
+    let imgStyle : CSSProperties = 
+    {
+        display: "inline-block", 
+        verticalAlign: "top"
+    }
+
+    let detailsContainerStyle : CSSProperties = 
+    {
+        display: "inline-block", 
+        verticalAlign: "top", 
+        position: "relative", 
+        width: "280px"
+    }
+
+    let titleStyle : CSSProperties =
+    {
+        padding: "16px 16px 0px 16px", 
+        color: Colors.darkBlue, 
+        fontWeight: "bold"
+    }
+
+    let locationStyle : CSSProperties =
+    { 
+        padding: "8px 16px 0px 16px", 
+        color: Colors.grey 
+    }
+
+    let bookNowButtonStyle : CSSProperties = 
+    { 
+        backgroundColor: Colors.yellow, 
+        color: Colors.darkBlue, 
+        fontWeight: "bold", 
+        padding: "12px", 
+        margin: "16px", 
+        borderRadius: "4px", 
+        textAlign: "center", 
+        position: "absolute", 
+        bottom: 0, 
+        left: 0, 
+        right: 0 
+    }
+
+    let bookNowTextStyle : CSSProperties = 
+    { 
+        fontSize: "13px" 
+    }
+
+    let priceTextStyle : CSSProperties = 
+    { 
+        fontSize: "24px" 
+    }
+
+    let readMoreContainerStyle : CSSProperties = 
+    { 
+        background: Colors.white, 
+        color: Colors.darkBlue, 
+        position: "absolute", 
+        display: "flex", 
+        alignItems: "center", 
+        padding: "8px 8px 8px 16px", 
+        bottom: 0, 
+        left: 0, 
+        userSelect: "none" 
+    }
+
+    let chevronIconStyle : CSSProperties =
+    {
+        width: "32px", 
+        height: "32px" 
+    }
+
+    let overviewContainerStyle : CSSProperties =
+    { 
+        display: props.isSelected ? "block" : "none", 
+        padding: "16px" 
+    }
+
+    let overviewTitleStyle : CSSProperties =
+    { 
+        color: Colors.darkBlue, 
+        fontWeight: "bold", 
+        marginBottom: "8px" 
+    }
+
+    return (
+        <div key={props.index} style={containerStyle}>
+            <div style={innerContainerStyle}>
+                <img style={imgStyle} src={props.holiday.imageUrl} alt="hotel"/>
+                <div style={detailsContainerStyle}>
+                    <p style={titleStyle} data-testid="holiday-name">{props.holiday.name}</p>
+                    <p style={locationStyle}>{props.holiday.location}</p>
+                    <Stars starRating={props.holiday.starRating}/>
+                    {getAttendeesText()}
+                    {getDateText()}
+                    {getDepartingFromText()}
+                    <div style={bookNowButtonStyle}>
+                        <p style={bookNowTextStyle}>Book now</p>
+                        <p style={priceTextStyle}>{getPriceString(props.holiday.price)}</p>
+                    </div>
+                </div>
+                <div style={readMoreContainerStyle} onClick={() => State.selectHoliday(props.isSelected ? -1 : props.index)}>
+                    <p><b>Read more</b> about this hotel</p>
+                    <img style={chevronIconStyle} src={props.isSelected ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")} alt="chevron icon"/>
+                </div>
+            </div>
+            <div style={overviewContainerStyle} data-testid="overview">
+                <p style={overviewTitleStyle}>Overview</p>
+                <p>{props.holiday.overview}</p>
+            </div>
+        </div>
+    )
 }
