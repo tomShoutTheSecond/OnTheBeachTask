@@ -3,6 +3,7 @@ import { Holiday } from "./Holiday";
 import { Stars } from "./Stars";
 import { Colors } from "./Colors";
 import { Util } from "./Util";
+import { CSSProperties } from 'react';
 
 interface HolidayItemProps {
     index: number;
@@ -85,15 +86,6 @@ const ChevronIcon = styled.img`
     height: 32px;
 `;
 
-interface OverviewContainerProps {
-    isSelected: boolean;
-}
-
-const OverviewContainer = styled.div<OverviewContainerProps>`
-    display: ${props => props.isSelected ? 'block' : 'none'};
-    padding: 16px;
-`;
-
 const OverviewTitle = styled.p`
     color: ${Colors.darkBlue};
     font-weight: bold;
@@ -133,7 +125,13 @@ export function HolidayItem(props: HolidayItemProps) {
         
         return formatter.format(price); 
     }
-    
+
+    let overviewContainerStyle : CSSProperties = 
+    {
+        display: props.isSelected ? 'block' : 'none',
+        padding: "16px"
+    }
+
     return (
         <Container key={props.index}>
             <InnerContainer>
@@ -155,10 +153,10 @@ export function HolidayItem(props: HolidayItemProps) {
                     <ChevronIcon src={props.isSelected ? Util.getImageUrl("icon-chevron-down.svg") : Util.getImageUrl("icon-chevron-right.svg")} alt="chevron icon" />
                 </ReadMoreContainer>
             </InnerContainer>
-            <OverviewContainer isSelected={props.isSelected} data-testid="overview">
+            <div style={overviewContainerStyle} data-testid="overview">
                 <OverviewTitle>Overview</OverviewTitle>
                 <p>{props.holiday.overview}</p>
-            </OverviewContainer>
+            </div>
         </Container>
     );
 }
